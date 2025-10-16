@@ -45,12 +45,12 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
   return (
     <div
       className={cn(
-        'bg-black backdrop-blur-sm border-r border-gray-200/50 shadow-lg transition-all duration-300 flex flex-col',
+        'bg-black-950 backdrop-blur-sm border-r border-black-700 shadow-lg transition-all duration-300 flex flex-col',
         collapsed ? 'w-16' : 'w-64'
       )}
     >
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200/50 bg-gradient-to-r from-primary/5 to-secondary/5">
+      <div className="flex items-center justify-between p-4 border-b border-black-700 bg-black-800">
         {!collapsed && (
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center shadow-md">

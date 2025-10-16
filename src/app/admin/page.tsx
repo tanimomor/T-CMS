@@ -84,62 +84,62 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-primary via-purple-600 to-secondary rounded-lg p-6 text-white shadow-lg">
+      <div className="bg-black-800 rounded-lg p-6 text-white shadow-lg border border-black-700">
         <h1 className="text-2xl font-bold mb-2">Welcome to your CMS</h1>
-        <p className="text-white/90">
+        <p className="text-gray-300">
           Manage your content, build components, and organize your media files all in one place.
         </p>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="bg-black border-blue-200">
+        <Card className="bg-black-900 border-black-700">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Content Types</CardTitle>
-            <FileText className="h-4 w-4 text-blue-600" />
+            <CardTitle className="text-sm font-medium text-gray-200">Content Types</CardTitle>
+            <FileText className="h-4 w-4 text-blue-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-blue-900">{stats.contentTypes}</div>
-            <p className="text-xs text-blue-700/70">
+            <div className="text-2xl font-bold text-white">{stats.contentTypes}</div>
+            <p className="text-xs text-gray-400">
               {stats.contentTypes === 0 ? 'No content types yet' : 'Content types created'}
             </p>
           </CardContent>
         </Card>
 
-        <Card className="bg-black border-purple-200">
+        <Card className="bg-black-900 border-black-700">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Components</CardTitle>
-            <Puzzle className="h-4 w-4 text-purple-600" />
+            <CardTitle className="text-sm font-medium text-gray-200">Components</CardTitle>
+            <Puzzle className="h-4 w-4 text-purple-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-purple-900">{stats.components}</div>
-            <p className="text-xs text-purple-700/70">
+            <div className="text-2xl font-bold text-white">{stats.components}</div>
+            <p className="text-xs text-gray-400">
               {stats.components === 0 ? 'No components yet' : 'Reusable components'}
             </p>
           </CardContent>
         </Card>
 
-        <Card className="bg-black border-green-200">
+        <Card className="bg-black-900 border-black-700">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Entries</CardTitle>
-            <Activity className="h-4 w-4 text-green-600" />
+            <CardTitle className="text-sm font-medium text-gray-200">Entries</CardTitle>
+            <Activity className="h-4 w-4 text-green-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-900">{stats.entries}</div>
-            <p className="text-xs text-green-700/70">
+            <div className="text-2xl font-bold text-white">{stats.entries}</div>
+            <p className="text-xs text-gray-400">
               {stats.entries === 0 ? 'No entries yet' : 'Content entries'}
             </p>
           </CardContent>
         </Card>
 
-        <Card className="bg-black border-orange-200">
+        <Card className="bg-black-900 border-black-700">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Media Files</CardTitle>
-            <Image className="h-4 w-4 text-orange-600" />
+            <CardTitle className="text-sm font-medium text-gray-200">Media Files</CardTitle>
+            <Image className="h-4 w-4 text-orange-400" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-900">{stats.mediaFiles}</div>
-            <p className="text-xs text-orange-700/70">
+            <div className="text-2xl font-bold text-white">{stats.mediaFiles}</div>
+            <p className="text-xs text-gray-400">
               {stats.mediaFiles === 0 ? 'No media files yet' : 'Files uploaded'}
             </p>
           </CardContent>
@@ -153,7 +153,7 @@ export default function DashboardPage() {
           {quickActions.map((action) => {
             const Icon = action.icon;
             return (
-              <Card key={action.title} className="hover:shadow-lg transition-all duration-200 cursor-pointer border-0 bg-black hover:bg-gray-900">
+                      <Card key={action.title} className="hover:shadow-lg transition-all duration-200 cursor-pointer border-0 bg-black-900 hover:bg-black-800 border-black-700">
                 <CardHeader className="pb-3">
                   <div className="flex items-center space-x-3">
                     <div className={`p-3 rounded-xl ${action.color} text-white shadow-lg`}>

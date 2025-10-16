@@ -103,50 +103,50 @@ export default function MediaLibraryPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-black border-blue-200">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-blue-700">Total Files</p>
-                <p className="text-2xl font-bold text-blue-900">{mediaFiles.length}</p>
-              </div>
-              <div className="text-2xl">📁</div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="bg-black border-green-200">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-green-700">Images</p>
-                <p className="text-2xl font-bold text-green-900">{getFilesByType('image').length}</p>
-              </div>
-              <div className="text-2xl">🖼️</div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="bg-black border-purple-200">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-purple-700">Videos</p>
-                <p className="text-2xl font-bold text-purple-900">{getFilesByType('video').length}</p>
-              </div>
-              <div className="text-2xl">🎥</div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="bg-black border-orange-200">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-orange-700">Documents</p>
-                <p className="text-2xl font-bold text-orange-900">{getFilesByType('document').length}</p>
-              </div>
-              <div className="text-2xl">📄</div>
-            </div>
-          </CardContent>
-        </Card>
+                <Card className="bg-black-900 border-black-700">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-blue-400">Total Files</p>
+                        <p className="text-2xl font-bold text-white">{mediaFiles.length}</p>
+                      </div>
+                      <div className="text-2xl">📁</div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-black-900 border-black-700">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-green-400">Images</p>
+                        <p className="text-2xl font-bold text-white">{getFilesByType('image').length}</p>
+                      </div>
+                      <div className="text-2xl">🖼️</div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-black-900 border-black-700">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-purple-400">Videos</p>
+                        <p className="text-2xl font-bold text-white">{getFilesByType('video').length}</p>
+                      </div>
+                      <div className="text-2xl">🎥</div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-black-900 border-black-700">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-orange-400">Documents</p>
+                        <p className="text-2xl font-bold text-white">{getFilesByType('document').length}</p>
+                      </div>
+                      <div className="text-2xl">📄</div>
+                    </div>
+                  </CardContent>
+                </Card>
       </div>
 
       {/* Filters and Controls */}

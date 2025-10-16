@@ -14,7 +14,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onMenuToggle, title, breadcrumbs }) => {
   return (
-    <header className="bg-black backdrop-blur-sm border-b border-gray-200/50 px-6 py-4 shadow-sm">
+            <header className="bg-black-900 backdrop-blur-sm border-b border-black-700 px-6 py-4 shadow-sm">
       <div className="flex items-center justify-between">
         {/* Left side */}
         <div className="flex items-center space-x-4">

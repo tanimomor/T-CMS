@@ -100,13 +100,13 @@ export default function ContentManagerPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {collectionTypes.map((contentType) => (
-                <Card
-                  key={contentType.id}
-                  className={`cursor-pointer transition-all hover:shadow-lg ${
-                    selectedContentType === contentType.id
-                      ? 'ring-2 ring-primary bg-black shadow-lg'
-                      : 'hover:bg-gray-900'
-                  }`}
+                        <Card
+                          key={contentType.id}
+                          className={`cursor-pointer transition-all hover:shadow-lg ${
+                            selectedContentType === contentType.id
+                              ? 'ring-2 ring-primary bg-black-800 shadow-lg'
+                              : 'hover:bg-black-800'
+                          }`}
                   onClick={() => setSelectedContentType(contentType.id)}
                 >
                   <CardHeader className="pb-3">

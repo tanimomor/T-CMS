@@ -33,7 +33,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     id,
     ...props 
   }, ref) => {
-    const selectId = id || `select-${Math.random().toString(36).substr(2, 9)}`;
+    const selectId = id || 'select-field';
     
     const sizeClasses = {
       sm: 'h-8 px-3 text-sm',

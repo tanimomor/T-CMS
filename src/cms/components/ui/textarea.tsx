@@ -25,7 +25,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     value,
     ...props 
   }, ref) => {
-    const inputId = id || `textarea-${Math.random().toString(36).substr(2, 9)}`;
+    const inputId = id || 'textarea-field';
     const currentLength = typeof value === 'string' ? value.length : 0;
     
     const resizeClasses = {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plus, Search, Filter, MoreHorizontal, Edit, Trash2, Eye } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/cms/components/ui/card';
 import { Button } from '@/cms/components/ui/button';
@@ -13,7 +13,13 @@ import { useInitData } from '@/cms/lib/hooks/use-init-data';
 import { formatRelativeTime } from '@/cms/lib/utils';
 
 export default function ContentManagerPage() {
-  // Initialize mock data
+  const [isClient, setIsClient] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Initialize mock data only on client
   useInitData();
   
   const { contentTypes, getCollectionTypes } = useContentTypesStore();
@@ -51,6 +57,18 @@ export default function ContentManagerPage() {
     return entry.data?.title || entry.data?.name || `Entry ${entry.id.slice(0, 8)}`;
   };
 
+  // Show loading state during hydration
+  if (!isClient) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-gray-500">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -84,10 +102,10 @@ export default function ContentManagerPage() {
               {collectionTypes.map((contentType) => (
                 <Card
                   key={contentType.id}
-                  className={`cursor-pointer transition-all hover:shadow-md ${
+                  className={`cursor-pointer transition-all hover:shadow-lg ${
                     selectedContentType === contentType.id
-                      ? 'ring-2 ring-primary bg-primary/5'
-                      : ''
+                      ? 'ring-2 ring-primary bg-black shadow-lg'
+                      : 'hover:bg-gray-900'
                   }`}
                   onClick={() => setSelectedContentType(contentType.id)}
                 >

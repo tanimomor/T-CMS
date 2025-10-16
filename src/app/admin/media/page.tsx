@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Upload, Grid, List, Search, Filter, MoreHorizontal, Download, Trash2, Edit } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/cms/components/ui/card';
 import { Button } from '@/cms/components/ui/button';
@@ -12,7 +12,13 @@ import { useInitData } from '@/cms/lib/hooks/use-init-data';
 import { formatRelativeTime, formatFileSize } from '@/cms/lib/utils';
 
 export default function MediaLibraryPage() {
-  // Initialize mock data
+  const [isClient, setIsClient] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Initialize mock data only on client
   useInitData();
   
   const { mediaFiles, viewMode, setViewMode, getFilesByType } = useMediaStore();
@@ -67,6 +73,18 @@ export default function MediaLibraryPage() {
     setSelectedFiles([]);
   };
 
+  // Show loading state during hydration
+  if (!isClient) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-gray-500">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -85,45 +103,45 @@ export default function MediaLibraryPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
+        <Card className="bg-black border-blue-200">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Files</p>
-                <p className="text-2xl font-bold">{mediaFiles.length}</p>
+                <p className="text-sm font-medium text-blue-700">Total Files</p>
+                <p className="text-2xl font-bold text-blue-900">{mediaFiles.length}</p>
               </div>
               <div className="text-2xl">📁</div>
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-black border-green-200">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Images</p>
-                <p className="text-2xl font-bold">{getFilesByType('image').length}</p>
+                <p className="text-sm font-medium text-green-700">Images</p>
+                <p className="text-2xl font-bold text-green-900">{getFilesByType('image').length}</p>
               </div>
               <div className="text-2xl">🖼️</div>
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-black border-purple-200">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Videos</p>
-                <p className="text-2xl font-bold">{getFilesByType('video').length}</p>
+                <p className="text-sm font-medium text-purple-700">Videos</p>
+                <p className="text-2xl font-bold text-purple-900">{getFilesByType('video').length}</p>
               </div>
               <div className="text-2xl">🎥</div>
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-black border-orange-200">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Documents</p>
-                <p className="text-2xl font-bold">{getFilesByType('document').length}</p>
+                <p className="text-sm font-medium text-orange-700">Documents</p>
+                <p className="text-2xl font-bold text-orange-900">{getFilesByType('document').length}</p>
               </div>
               <div className="text-2xl">📄</div>
             </div>

@@ -26,7 +26,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   const pageTitle = breadcrumbs[breadcrumbs.length - 1]?.label || 'Admin';
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-black">
       {/* Sidebar */}
       <Sidebar
         collapsed={sidebarCollapsed}

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   FileText, 
   Puzzle, 
@@ -23,7 +23,13 @@ import { formatRelativeTime } from '@/cms/lib/utils';
 import { useInitData } from '@/cms/lib/hooks/use-init-data';
 
 export default function DashboardPage() {
-  // Initialize mock data
+  const [isClient, setIsClient] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Initialize mock data only on client
   useInitData();
   
   const { contentTypes } = useContentTypesStore();
@@ -38,6 +44,18 @@ export default function DashboardPage() {
     entries: entries.length,
     mediaFiles: mediaFiles.length,
   };
+
+  // Show loading state during hydration
+  if (!isClient) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-gray-500">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   const quickActions = [
     {
@@ -66,62 +84,62 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-primary to-primary/80 rounded-lg p-6 text-white">
+      <div className="bg-gradient-to-r from-primary via-purple-600 to-secondary rounded-lg p-6 text-white shadow-lg">
         <h1 className="text-2xl font-bold mb-2">Welcome to your CMS</h1>
-        <p className="text-primary-foreground/80">
+        <p className="text-white/90">
           Manage your content, build components, and organize your media files all in one place.
         </p>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card>
+        <Card className="bg-black border-blue-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Content Types</CardTitle>
-            <FileText className="h-4 w-4 text-muted-foreground" />
+            <FileText className="h-4 w-4 text-blue-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.contentTypes}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold text-blue-900">{stats.contentTypes}</div>
+            <p className="text-xs text-blue-700/70">
               {stats.contentTypes === 0 ? 'No content types yet' : 'Content types created'}
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-black border-purple-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Components</CardTitle>
-            <Puzzle className="h-4 w-4 text-muted-foreground" />
+            <Puzzle className="h-4 w-4 text-purple-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.components}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold text-purple-900">{stats.components}</div>
+            <p className="text-xs text-purple-700/70">
               {stats.components === 0 ? 'No components yet' : 'Reusable components'}
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-black border-green-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Entries</CardTitle>
-            <Activity className="h-4 w-4 text-muted-foreground" />
+            <Activity className="h-4 w-4 text-green-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.entries}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold text-green-900">{stats.entries}</div>
+            <p className="text-xs text-green-700/70">
               {stats.entries === 0 ? 'No entries yet' : 'Content entries'}
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-black border-orange-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Media Files</CardTitle>
-            <Image className="h-4 w-4 text-muted-foreground" />
+            <Image className="h-4 w-4 text-orange-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.mediaFiles}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold text-orange-900">{stats.mediaFiles}</div>
+            <p className="text-xs text-orange-700/70">
               {stats.mediaFiles === 0 ? 'No media files yet' : 'Files uploaded'}
             </p>
           </CardContent>
@@ -135,11 +153,11 @@ export default function DashboardPage() {
           {quickActions.map((action) => {
             const Icon = action.icon;
             return (
-              <Card key={action.title} className="hover:shadow-md transition-shadow cursor-pointer">
+              <Card key={action.title} className="hover:shadow-lg transition-all duration-200 cursor-pointer border-0 bg-black hover:bg-gray-900">
                 <CardHeader className="pb-3">
                   <div className="flex items-center space-x-3">
-                    <div className={`p-2 rounded-lg ${action.color} text-white`}>
-                      <Icon className="h-5 w-5" />
+                    <div className={`p-3 rounded-xl ${action.color} text-white shadow-lg`}>
+                      <Icon className="h-6 w-6" />
                     </div>
                     <div>
                       <CardTitle className="text-base">{action.title}</CardTitle>
@@ -150,7 +168,7 @@ export default function DashboardPage() {
                   </div>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <Button variant="outline" size="sm" className="w-full">
+                  <Button variant="outline" size="sm" className="w-full hover:bg-primary hover:text-white transition-colors">
                     Get Started
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>

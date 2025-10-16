@@ -15,8 +15,8 @@ export function useInitData() {
   const { settings } = useSettingsStore();
 
   useEffect(() => {
-    // Only initialize if no data exists
-    if (contentTypes.length === 0 && components.length === 0 && entries.length === 0) {
+    // Only initialize if no data exists and we're on the client
+    if (typeof window !== 'undefined' && contentTypes.length === 0 && components.length === 0 && entries.length === 0) {
       initializeMockData();
     }
   }, [contentTypes.length, components.length, entries.length]);

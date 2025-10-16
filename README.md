@@ -1,619 +1,344 @@
-# YourCMS - Modern Headless CMS for Next.js
+# Next.js AI Powered Headless CMS
 
-> A powerful, developer-friendly headless CMS built exclusively for Next.js. Create content types, manage content, and build dynamic websites with an intuitive admin panel - all with built-in AI assistance.
+A modern, fully-featured CMS admin panel built with Next.js 14+, TypeScript, and Tailwind CSS. This project replicates Strapi's functionality with a beautiful, professional interface.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Next.js](https://img.shields.io/badge/Next.js-14+-black)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue)](https://www.typescriptlang.org/)
+## 🚀 Features
 
----
+- **Content Management**: Create and manage content types with flexible field configurations
+- **Component Library**: Build reusable components for consistent content structures
+- **Media Library**: Upload, organize, and manage media files
+- **Entry Management**: Create, edit, and publish content entries with draft/publish workflow
+- **Internationalization**: Multi-language support with locale management
+- **Settings**: Comprehensive configuration options for your CMS
+- **Responsive Design**: Works seamlessly on desktop and tablet devices
+- **TypeScript**: Full type safety throughout the application
+- **Local Storage**: Data persistence using browser localStorage (no backend required)
 
-## 🎯 Vision
+## 🏗️ Project Structure
 
-Build a modern CMS that combines the power of Strapi's content modeling with a framework-first approach, enhanced by AI capabilities for content generation, optimization, and management.
-
-## ✨ Features
-
-### Content Management
-- 🎨 **Visual Content-Type Builder** - Create content types with 14+ field types
-- 📝 **Intuitive Content Manager** - Manage entries with draft/publish workflow
-- 🔄 **Dynamic Zones** - Flexible content blocks for page building
-- 🧩 **Reusable Components** - Build once, use everywhere
-- 🔁 **Repeatable Components** - FAQ items, team members, testimonials
-- 🌍 **Internationalization (i18n)** - Multi-language content support
-- 📁 **Media Library** - Upload and manage assets with drag-and-drop
-- 🔍 **Advanced Filtering** - Search, sort, and filter content easily
-
-### Developer Experience
-- ⚡ **Next.js 14+ Optimized** - Built for App Router and Server Components
-- 🛠️ **Type-Safe API** - Full TypeScript support with auto-generated types
-- 🎣 **Lifecycle Hooks** - `preSave`, `postSave`, `preDelete`, `postDelete`
-- 🔌 **Plugin Architecture** - Extend functionality with custom plugins
-- 📦 **Storage Adapters** - JSON files (default), MongoDB, PostgreSQL (coming soon)
-- 🚀 **Framework-Ready** - Isolated `src/cms/` structure for easy updates
-
-### AI-Powered Features 🤖
-- ✍️ **AI Content Generation** - Generate content for any field type
-- 🎨 **SEO Optimization** - AI-powered meta descriptions and keywords
-- 🖼️ **Image Alt Text Generation** - Automatic accessibility improvements
-- 📊 **Content Suggestions** - Smart recommendations based on content type
-- 🌐 **Translation Assistance** - AI-assisted content localization
-- 🔍 **Smart Search** - Semantic search across all content
-
-### Publishing Workflow
-- 💾 **Draft System** - Save work in progress without publishing
-- ✅ **Publish/Unpublish** - Control content visibility
-- 📅 **Scheduled Publishing** - Set future publish dates
-- 🔄 **Version History** - Track changes and revert if needed
-- 👁️ **Preview Mode** - See changes before publishing
-
----
-
-## 🏗️ Architecture
-
-### Project Structure
+**IMPORTANT**: This CMS follows a strict separation of concerns:
 
 ```
-your-nextjs-project/
-├── src/
-│   ├── cms/                          # 🔒 CMS Framework (Do Not Modify)
-│   │   ├── app/
-│   │   │   └── admin/                # Admin panel routes (/admin)
-│   │   │       ├── page.tsx          # Dashboard
-│   │   │       ├── content-manager/  # Content management
-│   │   │       ├── content-builder/  # Content type builder
-│   │   │       ├── components/       # Component library
-│   │   │       ├── media/            # Media library
-│   │   │       └── settings/         # CMS settings
-│   │   ├── components/               # CMS UI components
-│   │   │   ├── ui/                   # Reusable UI elements
-│   │   │   ├── forms/                # Form components
-│   │   │   ├── layout/               # Sidebar, navigation
-│   │   │   ├── editors/              # Field editors, WYSIWYG
-│   │   │   └── builders/             # Content builders
-│   │   ├── services/                 # Business logic layer
-│   │   │   ├── content-type.service.ts
-│   │   │   ├── component.service.ts
-│   │   │   ├── entry.service.ts
-│   │   │   ├── media.service.ts
-│   │   │   ├── ai.service.ts         # AI integration
-│   │   │   └── storage.service.ts
-│   │   ├── lib/                      # Utilities & helpers
-│   │   │   ├── stores/               # State management (Zustand)
-│   │   │   ├── hooks/                # React hooks
-│   │   │   ├── utils/                # Helper functions
-│   │   │   └── types/                # TypeScript definitions
-│   │   └── config/                   # CMS configuration
-│   │
-│   ├── app/                          # 👤 Your Website Routes
-│   │   ├── page.tsx                  # Your homepage
-│   │   ├── about/                    # Your pages
-│   │   └── api/                      # Your API routes
-│   │
-│   ├── components/                   # 👤 Your Components
-│   └── lib/                          # 👤 Your Utilities
+src/
+├── cms/                          # 🔒 CMS Framework - DO NOT modify
+│   ├── app/admin/                # CMS admin routes (/admin/*)
+│   ├── components/               # CMS UI components
+│   ├── lib/                      # CMS utilities, stores, hooks
+│   ├── services/                 # CMS business logic
+│   └── config/                   # CMS configuration
 │
-├── cms.config.ts                     # CMS configuration file
-├── cms-data/                         # Content storage (auto-generated)
-└── package.json
+├── app/                          # 👤 User's website routes
+│   ├── page.tsx                  # User's homepage
+│   ├── about/                    # User's pages
+│   └── admin/                    # CMS admin panel routes
+│
+├── components/                   # 👤 User's components
+└── lib/                          # 👤 User's utilities
 ```
 
-### Why This Structure?
+### Key Principles:
+- ✅ **Clear Separation**: `src/cms/` contains all framework code
+- ✅ **No Conflicts**: User code goes in `src/app/`, `src/components/`, `src/lib/`
+- ✅ **Framework-Ready**: Entire `src/cms/` can be packaged as npm package
+- ✅ **Easy Updates**: Replace entire `src/cms/` folder to update CMS
+- ✅ **Maintainable**: Contributors know exactly where to work
 
-✅ **Clear Separation** - Know exactly what's framework vs your code  
-✅ **No Confusion** - `src/cms/` is hands-off, everything else is yours  
-✅ **Easy Updates** - Update CMS by replacing `src/cms/` folder  
-✅ **No Conflicts** - Name your components anything without collision  
-✅ **Framework-Ready** - Can be packaged as npm module later
+## 🛠️ Technology Stack
 
----
+- **Next.js 14+** with App Router
+- **TypeScript** for type safety
+- **Tailwind CSS** for styling
+- **Lucide React** for icons
+- **React Hook Form** for form management
+- **Zustand** for state management
+- **Local Storage** for data persistence
 
 ## 🚀 Getting Started
 
-### Installation (Coming Soon)
+### Prerequisites
 
-```bash
-# Using npx (recommended)
-npx create-your-cms@latest my-project
-cd my-project
-npm run dev
+- Node.js 18+ 
+- npm, yarn, pnpm, or bun
 
-# Or clone the repository
-git clone https://github.com/yourusername/your-cms.git
-cd your-cms
-npm install
-npm run dev
-```
+### Installation
 
-### Access Admin Panel
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd my-cms
+   ```
 
-Open [http://localhost:3000/admin](http://localhost:3000/admin) in your browser.
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   ```
 
----
+3. **Run the development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   ```
 
-## 📚 Usage
+4. **Open your browser**
+   - User Website: [http://localhost:3000](http://localhost:3000)
+   - CMS Admin Panel: [http://localhost:3000/admin](http://localhost:3000/admin)
 
-### 1. Create a Content Type
+## 📖 Usage Guide
 
-```typescript
-// In the admin panel: /admin/content-builder
+### Accessing the CMS
 
-// Example: Article content type
-{
-  name: "Article",
-  type: "collection", // or "single"
-  fields: [
-    { name: "title", type: "text", required: true },
-    { name: "slug", type: "uid", targetField: "title" },
-    { name: "content", type: "richtext" },
-    { name: "coverImage", type: "media" },
-    { name: "author", type: "relation", target: "author" },
-    { name: "publishedAt", type: "datetime" },
-    { name: "seo", type: "component", component: "seo" }
-  ]
+Navigate to `/admin` to access the CMS admin panel. The system includes:
+
+1. **Dashboard** (`/admin`) - Overview with stats and quick actions
+2. **Content Manager** (`/admin/content-manager`) - Manage content entries
+3. **Content-Type Builder** (`/admin/content-builder`) - Create content types
+4. **Component Library** (`/admin/components`) - Manage reusable components
+5. **Media Library** (`/admin/media`) - Upload and manage files
+6. **Settings** (`/admin/settings`) - Configure your CMS
+
+### Creating Content Types
+
+1. Go to **Content-Type Builder**
+2. Click **Create new content type**
+3. Choose between **Single Type** or **Collection Type**
+4. Configure basic settings (name, API ID, description)
+5. Add fields using the field editor
+6. Save your content type
+
+### Available Field Types
+
+- **Text Fields**: Text, Long Text, Rich Text, Email, Password
+- **Numbers**: Number, Decimal, Float
+- **Dates**: Date, DateTime, Time
+- **Media**: Single Media, Multiple Media
+- **Relations**: One-to-One, One-to-Many, Many-to-One, Many-to-Many
+- **Components**: Single Component, Repeatable Component
+- **Advanced**: JSON, UID, Boolean, Enumeration, Dynamic Zone
+
+### Building Components
+
+1. Go to **Component Library**
+2. Click **Create new component**
+3. Configure component settings (name, category, repeatable)
+4. Add fields to your component
+5. Use components in content types
+
+### Managing Content
+
+1. Go to **Content Manager**
+2. Select a content type
+3. View, create, edit, or delete entries
+4. Use the draft/publish workflow
+5. Search and filter entries
+
+### Media Management
+
+1. Go to **Media Library**
+2. Upload files via drag & drop or file browser
+3. Organize files in folders
+4. Edit file metadata (alt text, captions)
+5. Search and filter media files
+
+## 🎨 Customization
+
+### Styling
+
+The CMS uses Tailwind CSS with a custom design system. Key CSS variables:
+
+```css
+:root {
+  --primary: 124 58 237;        /* Purple */
+  --primary-foreground: 255 255 255;
+  --secondary: 99 102 241;      /* Indigo */
+  --background: 255 255 255;
+  --foreground: 31 41 55;
 }
 ```
 
-### 2. Configure CMS (Optional)
+### Adding Custom Components
 
-```typescript
-// cms.config.ts
+Create your own UI components in `src/cms/components/ui/` following the existing patterns.
 
-export default {
-  // Storage configuration
-  storage: {
-    type: 'json', // 'mongodb', 'postgresql' coming soon
-    path: './cms-data'
-  },
+### Extending Field Types
 
-  // AI Configuration
-  ai: {
-    enabled: true,
-    provider: 'openai', // or 'anthropic', 'gemini'
-    apiKey: process.env.AI_API_KEY,
-    features: {
-      contentGeneration: true,
-      seoOptimization: true,
-      imageAltText: true,
-      translation: true
-    }
-  },
+Add new field types in `src/cms/config/field-types.ts` and implement the corresponding editor components.
 
-  // Internationalization
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'es', 'fr', 'de']
-  },
+## 🔧 Configuration
 
-  // Media configuration
-  media: {
-    maxFileSize: 10 * 1024 * 1024, // 10MB
-    allowedTypes: ['image/*', 'video/*', 'application/pdf']
-  }
-}
+### Environment Variables
+
+Create a `.env.local` file:
+
+```env
+# Optional: Customize default settings
+NEXT_PUBLIC_CMS_NAME="My CMS"
+NEXT_PUBLIC_DEFAULT_LOCALE="en"
 ```
 
-### 3. Use Content in Your App
+### Settings
 
-```typescript
-// src/app/blog/page.tsx
+Configure your CMS through the Settings page:
 
-import { ContentService } from '@/cms/services';
+- **General**: App name, description, timezone
+- **Internationalization**: Enable i18n, manage locales
+- **Roles & Permissions**: User role management
+- **API Tokens**: External API access
+- **Webhooks**: Real-time notifications
 
-export default async function BlogPage() {
-  const articleService = ContentService.for('article');
-  
-  // Get all published articles
-  const articles = await articleService.getAll({
-    filters: { status: 'published' },
-    sort: { publishedAt: 'desc' },
-    limit: 10
-  });
+## 📊 Data Storage
 
-  return (
-    <div>
-      {articles.map(article => (
-        <article key={article.id}>
-          <h2>{article.title}</h2>
-          <div dangerouslySetInnerHTML={{ __html: article.content }} />
-        </article>
-      ))}
-    </div>
-  );
-}
+Currently, the CMS uses browser localStorage for data persistence. This means:
+
+- ✅ **No Backend Required**: Works entirely in the browser
+- ✅ **Fast Development**: No database setup needed
+- ✅ **Portable**: Easy to demo and test
+- ⚠️ **Browser-Specific**: Data is tied to the browser/device
+- ⚠️ **Limited Storage**: Subject to browser storage limits
+
+### Future Backend Integration
+
+The architecture is designed to easily integrate with a backend:
+
+1. Replace `src/cms/services/storage.service.ts` with API calls
+2. Update store actions to use async operations
+3. Add authentication and authorization
+4. Implement real-time updates with WebSockets
+
+## 🧪 Development
+
+### Project Structure Details
+
+```
+src/cms/
+├── app/admin/                    # Admin panel pages
+│   ├── layout.tsx               # Admin layout wrapper
+│   ├── page.tsx                 # Dashboard
+│   ├── content-manager/         # Content management
+│   ├── content-builder/         # Content type builder
+│   ├── components/              # Component library
+│   ├── media/                   # Media library
+│   └── settings/                # Settings pages
+├── components/                   # UI components
+│   ├── ui/                      # Basic UI elements
+│   ├── forms/                   # Form components
+│   ├── layout/                  # Layout components
+│   ├── editors/                 # Field editors
+│   └── builders/                # Content builders
+├── lib/                         # Utilities
+│   ├── stores/                  # Zustand stores
+│   ├── hooks/                   # Custom hooks
+│   ├── utils/                   # Helper functions
+│   ├── validators/              # Validation logic
+│   └── types/                   # TypeScript types
+├── services/                    # Business logic
+│   ├── content-type.service.ts  # Content type operations
+│   ├── component.service.ts     # Component operations
+│   ├── entry.service.ts         # Entry operations
+│   ├── media.service.ts         # Media operations
+│   └── storage.service.ts       # Data persistence
+└── config/                      # Configuration
+    ├── field-types.ts           # Field type definitions
+    ├── routes.ts                # Route constants
+    └── constants.ts             # App constants
 ```
 
-### 4. Use Lifecycle Hooks
+### Adding New Features
 
-```typescript
-// cms.config.ts
+1. **New Field Type**:
+   - Add to `src/cms/config/field-types.ts`
+   - Create editor component in `src/cms/components/editors/`
+   - Update validation in `src/cms/lib/validators/`
 
-export default {
-  contentTypes: {
-    article: {
-      hooks: {
-        // Before saving
-        preSave: async (data) => {
-          // Auto-generate slug
-          if (!data.slug && data.title) {
-            data.slug = generateSlug(data.title);
-          }
-          
-          // Use AI to generate SEO if empty
-          if (!data.seo?.metaDescription) {
-            data.seo = await aiService.generateSEO(data);
-          }
-          
-          return data;
-        },
+2. **New Page**:
+   - Create page in `src/cms/app/admin/`
+   - Add route to `src/cms/config/routes.ts`
+   - Update navigation in `src/cms/components/layout/sidebar.tsx`
 
-        // After saving
-        postSave: async (data) => {
-          // Clear cache
-          await cache.invalidate(`articles`);
-          
-          // Send webhook
-          await sendWebhook('article.created', data);
-          
-          // Notify team
-          await slack.notify(`New article published: ${data.title}`);
-        },
+3. **New Service**:
+   - Create service in `src/cms/services/`
+   - Add corresponding store in `src/cms/lib/stores/`
+   - Update types in `src/cms/lib/types/`
 
-        // Before deleting
-        preDelete: async (id) => {
-          // Check if article has comments
-          const hasComments = await checkComments(id);
-          if (hasComments) {
-            throw new Error('Cannot delete article with comments');
-          }
-        },
+## 🚀 Deployment
 
-        // After deleting
-        postDelete: async (id) => {
-          // Delete associated media
-          await mediaService.deleteUnused();
-        }
-      }
-    }
-  }
-}
-```
+### Vercel (Recommended)
 
----
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Deploy with default settings
 
-## 🤖 AI Features
+### Other Platforms
 
-### Content Generation
+The CMS works on any platform that supports Next.js:
 
-```typescript
-// In the admin panel
-// Click "Generate with AI" button on any text field
+- **Netlify**: Connect GitHub repository
+- **Railway**: Deploy with one click
+- **DigitalOcean App Platform**: Container-based deployment
+- **AWS Amplify**: Full-stack deployment
 
-// Or programmatically:
-import { AIService } from '@/cms/services';
+### Environment Setup
 
-const content = await AIService.generateContent({
-  contentType: 'article',
-  fieldName: 'content',
-  prompt: 'Write about sustainable living',
-  tone: 'professional',
-  length: 'medium'
-});
-```
+For production, consider:
 
-### SEO Optimization
-
-```typescript
-// Auto-generate SEO metadata
-const seo = await AIService.optimizeSEO({
-  title: 'My Article Title',
-  content: 'Article content...',
-  keywords: ['sustainability', 'environment']
-});
-
-// Returns:
-{
-  metaTitle: 'Optimized title (60 chars)',
-  metaDescription: 'Compelling description (160 chars)',
-  keywords: ['relevant', 'keywords'],
-  ogImage: 'suggested-image.jpg'
-}
-```
-
-### Translation Assistance
-
-```typescript
-// Translate content to another locale
-const translated = await AIService.translate({
-  content: entry,
-  fromLocale: 'en',
-  toLocale: 'es',
-  preserveFormatting: true
-});
-```
-
----
-
-## 🎨 Available Field Types
-
-1. **Text** - Short text, Long text, Rich text (WYSIWYG)
-2. **Number** - Integer, Decimal, Float
-3. **Date** - Date, DateTime, Time
-4. **Boolean** - True/False toggle
-5. **Email** - Email validation
-6. **Password** - Encrypted password
-7. **Enumeration** - Dropdown with custom values
-8. **Media** - Single or multiple files
-9. **Relation** - Link to other content types
-10. **JSON** - Raw JSON data
-11. **UID** - Unique identifier (auto-slug)
-12. **Component** - Single-use reusable component
-13. **Repeatable Component** - Multi-instance component
-14. **Dynamic Zone** - Flexible content blocks
-
----
-
-## 🧩 Component System
-
-### Single-Use Components
-Use once per entry (e.g., SEO, Hero Section)
-
-```typescript
-// Example: SEO Component
-{
-  name: "SEO",
-  category: "metadata",
-  repeatable: false,
-  fields: [
-    { name: "metaTitle", type: "text", maxLength: 60 },
-    { name: "metaDescription", type: "text", maxLength: 160 },
-    { name: "keywords", type: "text" },
-    { name: "ogImage", type: "media" }
-  ]
-}
-```
-
-### Repeatable Components
-Use multiple times per entry (e.g., FAQ, Team Members)
-
-```typescript
-// Example: FAQ Item Component
-{
-  name: "FAQ Item",
-  category: "content",
-  repeatable: true,
-  minInstances: 1,
-  maxInstances: 20,
-  fields: [
-    { name: "question", type: "text", required: true },
-    { name: "answer", type: "richtext", required: true }
-  ]
-}
-```
-
-### Dynamic Zones
-Mix multiple components in any order
-
-```typescript
-// Example: Page Builder
-{
-  name: "sections",
-  type: "dynamiczone",
-  components: [
-    "hero-section",
-    "feature-grid",
-    "testimonial-slider",
-    "cta-banner"
-  ]
-}
-```
-
----
-
-## 🌍 Internationalization
-
-### Enable i18n
-
-```typescript
-// cms.config.ts
-export default {
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'es', 'fr', 'de', 'ja']
-  }
-}
-```
-
-### Create Localized Content
-
-```typescript
-// In content manager, switch locale in sidebar
-// Each locale saves independently
-
-// Get content by locale
-const articles = await ContentService.for('article').getAll({
-  locale: 'es'
-});
-
-// Get all locales for an entry
-const entry = await ContentService.for('article').get(id, {
-  includeAllLocales: true
-});
-```
-
----
-
-## 🔌 API Reference
-
-### ContentService
-
-```typescript
-import { ContentService } from '@/cms/services';
-
-const service = ContentService.for('contentTypeName');
-
-// Create
-await service.create(data);
-
-// Read
-await service.get(id);
-await service.getAll(options);
-
-// Update
-await service.update(id, data);
-
-// Delete
-await service.delete(id);
-
-// Publish/Unpublish
-await service.publish(id);
-await service.unpublish(id);
-
-// Bulk operations
-await service.bulkDelete([id1, id2]);
-await service.bulkPublish([id1, id2]);
-```
-
-### Query Options
-
-```typescript
-await service.getAll({
-  filters: {
-    status: 'published',
-    category: 'tech',
-    publishedAt: { $gte: '2024-01-01' }
-  },
-  sort: { publishedAt: 'desc' },
-  limit: 10,
-  skip: 0,
-  locale: 'en',
-  populate: ['author', 'category']
-});
-```
-
----
-
-## 🛣️ Roadmap
-
-### Phase 1: Core CMS (Current)
-- [x] Admin panel UI
-- [x] Content type builder
-- [x] Content manager
-- [x] Component library
-- [x] Media library
-- [x] Draft/Publish workflow
-- [ ] Complete testing
-
-### Phase 2: Framework Features
-- [ ] CRUD API implementation
-- [ ] Lifecycle hooks system
-- [ ] Storage adapters (JSON, MongoDB, PostgreSQL)
-- [ ] Type generation
-- [ ] Plugin system
-
-### Phase 3: AI Integration
-- [ ] Content generation
-- [ ] SEO optimization
-- [ ] Image alt text generation
-- [ ] Translation assistance
-- [ ] Smart search
-
-### Phase 4: Advanced Features
-- [ ] Version history
-- [ ] Role-based access control (RBAC)
-- [ ] API token management
-- [ ] Webhooks
-- [ ] Scheduled publishing
-- [ ] Audit logs
-
-### Phase 5: Developer Tools
-- [ ] CLI tool (`create-your-cms`)
-- [ ] npm package release
-- [ ] GraphQL API
-- [ ] REST API auto-generation
-- [ ] SDK for popular frameworks
-
-### Phase 6: Enterprise Features
-- [ ] Multi-tenancy
-- [ ] Advanced caching
-- [ ] CDN integration
-- [ ] Performance monitoring
-- [ ] Custom field types
-- [ ] Marketplace for plugins
-
----
+1. **Database Integration**: Replace localStorage with a real database
+2. **Authentication**: Add user authentication and authorization
+3. **File Storage**: Use cloud storage for media files
+4. **CDN**: Serve static assets through a CDN
+5. **Monitoring**: Add error tracking and analytics
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) first.
+### Development Workflow
 
-### Development Setup
+1. **Fork the repository**
+2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
+3. **Make your changes** in the `src/cms/` directory
+4. **Test thoroughly** with the development server
+5. **Commit your changes**: `git commit -m 'Add amazing feature'`
+6. **Push to the branch**: `git push origin feature/amazing-feature`
+7. **Open a Pull Request**
 
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/your-cms.git
-cd your-cms
+### Code Standards
 
-# Install dependencies
-npm install
+- **TypeScript**: All code must be properly typed
+- **ESLint**: Follow the project's linting rules
+- **Prettier**: Code formatting is enforced
+- **Components**: Use functional components with hooks
+- **Styling**: Use Tailwind CSS classes
+- **Testing**: Add tests for new features
 
-# Run development server
-npm run dev
+### File Naming
 
-# Run tests
-npm test
-
-# Build for production
-npm run build
-```
-
----
-
-## 📖 Documentation
-
-- [Getting Started Guide](docs/getting-started.md)
-- [Content Type Builder](docs/content-types.md)
-- [Component System](docs/components.md)
-- [API Reference](docs/api-reference.md)
-- [Lifecycle Hooks](docs/hooks.md)
-- [AI Features](docs/ai-features.md)
-- [Internationalization](docs/i18n.md)
-- [Deployment](docs/deployment.md)
-
----
-
-## 🙏 Acknowledgments
-
-Inspired by:
-- [Strapi](https://strapi.io/) - Content type modeling and admin UI
-- [Payload CMS](https://payloadcms.com/) - Developer experience
-- [Directus](https://directus.io/) - Data-first approach
-- [ABP Framework](https://abp.io/) - CRUD and hook patterns
-
----
+- **Components**: PascalCase (`MyComponent.tsx`)
+- **Pages**: kebab-case (`my-page.tsx`)
+- **Utilities**: camelCase (`myUtility.ts`)
+- **Types**: PascalCase (`MyType.ts`)
 
 ## 📝 License
 
-MIT License - see [LICENSE](LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Strapi** for inspiration and feature reference
+- **Next.js** team for the amazing framework
+- **Tailwind CSS** for the utility-first CSS framework
+- **Lucide** for the beautiful icon set
+- **Zustand** for simple state management
+
+## 📞 Support
+
+- **Documentation**: Check this README and inline code comments
+- **Issues**: Open an issue on GitHub for bugs or feature requests
+- **Discussions**: Use GitHub Discussions for questions and ideas
 
 ---
 
-## 💬 Community & Support
-
-- 📧 Email: support@your-cms.com
-- 💬 Discord: [Join our community](https://discord.gg/your-cms)
-- 🐦 Twitter: [@your_cms](https://twitter.com/your_cms)
-- 📝 Blog: [blog.your-cms.com](https://blog.your-cms.com)
-
----
-
-## ⭐ Star History
-
-If you find this project useful, please consider giving it a star on GitHub!
-
----
-
-**Built with ❤️ by [Your Name](https://github.com/yourusername)**
-
-*Making content management simple, powerful, and AI-enhanced.*#   T - C M S  
- 
+**Happy Content Managing! 🎉**
